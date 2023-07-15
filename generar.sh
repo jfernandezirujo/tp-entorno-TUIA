@@ -27,11 +27,11 @@ do
 done
 
 # Comprime las imágenes
-zip -r "$IMAGES_FOLDER.zip" "$IMAGES_FOLDER"/*
+tar -czvf $IMAGES_FOLDER.tar.gz ./$IMAGES_FOLDER
 
 # Crea archivo con cantidad de imagnes
 touch $CHECKSUM_FILE
-md5sum "$IMAGES_FOLDER.zip" > "$CHECKSUM_FILE"
+md5sum "$IMAGES_FOLDER.tar.gz" > "$CHECKSUM_FILE"
 
 rm $NAMES_FILE
 rm -r $IMAGES_FOLDER
