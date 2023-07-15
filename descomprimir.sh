@@ -11,7 +11,7 @@ elif [ ! -f "$IMAGES_ZIP" ] || [ ! -f "$CHECKSUM_FILE" ]; then # Verifica si los
     echo "No se encontraron los archivos."
     exit 1
 else 
-    unzip "$IMAGES_ZIP"  # Descomprime las imágenes
+    tar -xvf "$IMAGES_ZIP"  # Descomprime las imágenes
     echo "Descompresión exitosa."
     rm $CHECKSUM_FILE
     rm -r $IMAGES_ZIP
