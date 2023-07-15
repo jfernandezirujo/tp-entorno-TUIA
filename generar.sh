@@ -27,7 +27,7 @@ do
 done
 
 # Comprime las imágenes
-tar -czvf $IMAGES_FOLDER.tar.gz ./$IMAGES_FOLDER
+tar -czvf $IMAGES_FOLDER.tar.gz ./$IMAGES_FOLDER #-c (crear) -z (comprimir) -v (mostar prog) -f (especifica nombre del archivo)
 
 # Crea archivo con cantidad de imagnes
 touch $CHECKSUM_FILE
