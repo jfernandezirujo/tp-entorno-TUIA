@@ -3,8 +3,8 @@
 # Variables
 IMAGES_ZIP=$1
 CHECKSUM_FILE=$2
-
-if sha256sum --check --status "$CHECKSUM_FILE"; then 
+CHECKSUM=$(cat "$CHECKSUM_FILE" | awk '{print $1}')
+if [[ $(md5sum "$IMAGES_ZIP" | awk '{print $1}') == "$CHECKSUM" ]]; then
     if [ "$#" -ne 2 ]; then # Verifica la cantidad de argumentos
         echo "Se requieren dos archivos como argumentos: imágenes comprimidas y archivo de suma de verificación."
         exit 1
@@ -14,12 +14,12 @@ if sha256sum --check --status "$CHECKSUM_FILE"; then
     else 
         tar -xvf "$IMAGES_ZIP"  # Descomprime las imágenes
         echo "Descompresión exitosa."
-        rm $CHECKSUM_FILE
-        rm -r $IMAGES_ZIP
+        rm "$CHECKSUM_FILE"
+        rm "$IMAGES_ZIP"
         exit 0
     fi
 else
-    echo "El archivo $IMAGES_ZIP no paso la verificacion de checksum"
+    echo "El archivo $IMAGES_ZIP no pasó la verificación de checksum."
     exit 1
 fi
 
