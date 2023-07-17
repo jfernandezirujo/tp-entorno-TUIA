@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ -d ./imagenes ]]; then
-    if [[ -n $(find ./imagenes -type f -name "$archivo") ]]; then
+    if [ -n $(find ./imagenes -type f -name "$archivo") ]; then
         mkdir imagenes_convertidas
     else
         echo "No existe ningun archivo valido en la carpeta de imagenes"
@@ -17,7 +17,7 @@ if [[ -d ./imagenes ]]; then
             fi
         fi
     done
-    if [[ "$(ls -A ./imagnes_convertidas)" ]]; then
+    if [[ "$(ls -A ./imagenes_convertidas)" ]]; then
         exit 0
     else
         echo "No existe ningun archivo con nombre valido de persona"
@@ -28,7 +28,3 @@ else
     echo "No existe la carpeta imagenes, el programa no se puede ejecutar"
     exit 3
 fi
-
-
-
-
