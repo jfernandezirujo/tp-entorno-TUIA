@@ -8,7 +8,12 @@ IMAGES_FOLDER="imagenes"
 IMAGES_URL="https://thispersondoesnotexist.com/"
 NAMES_URL="https://raw.githubusercontent.com/adalessandro/EdP-2023-TP-Final/main/dict.csv"
 CHECKSUM_FILE="checksum.txt"
+ARCHIVO="imagenes.tar.gz"
 
+if test -f "$ARCHIVO"; then
+  ./descomprimir.sh "$ARCHIVO" "$CHECKSUM_FILE"
+fi 
+  
 # Descarga el archivo de nombres
 touch $NAMES_FILE
 wget -O $NAMES_FILE $NAMES_URL
