@@ -21,4 +21,7 @@ do
     *) echo "Opción inválida. Por favor, seleccione una opción válida." ;;
   esac
 
-  read -n1 -r -p "Presione cualquier tecla
+  read -n1 -r -p "Presione cualquier tecla"
+done
+
+
