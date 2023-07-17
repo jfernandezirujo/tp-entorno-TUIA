@@ -22,7 +22,7 @@ do
   NAME=$(shuf -n 1 $NAMES_FILE) #Toma 1 valor random del archivo names_file
   NAME=$(echo $NAME | sed 's/,.*//') # Remueve la edad del nombre
   IMAGE_NAME=$(echo $NAME | tr ' ' '_') # Reemplaza espacios por guiones bajos
-  wget -O "$IMAGES_FOLDER/imagen_$N-$IMAGE_NAME.jpg" $IMAGES_URL #Toma 1 imagen de la url y le asigna el nombre
+  wget -O "$IMAGES_FOLDER/$IMAGE_NAME.jpg" $IMAGES_URL #Toma 1 imagen de la url y le asigna el nombre
   sleep 1 #Tiempo espera entre cada iteracion
 done
 
