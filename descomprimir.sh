@@ -3,8 +3,11 @@
 # Variables
 IMAGES_ZIP=$1
 CHECKSUM_FILE=$2
-CHECKSUM=$(cat "$CHECKSUM_FILE" | awk '{print $1}')
-if [[ $(md5sum "$IMAGES_ZIP" | awk '{print $1}') == "$CHECKSUM" ]]; then
+CHECKSUM_ESPERADO=$(cat "$CHECKSUM_FILE" | awk '{print $1}')
+CHECKSUM_ACTUAL=$(md5sum "$IMAGES_ZIP" | awk '{print $1}')
+
+# Verifica que el archivo pase la verificación de checksum
+if [[ "$CHECKSUM_ACTUAL" == "$CHECKSUM_ESPERADO" ]]; then 
     if [ "$#" -ne 2 ]; then # Verifica la cantidad de argumentos
         echo "Se requieren dos archivos como argumentos: imágenes comprimidas y archivo de suma de verificación."
         exit 1

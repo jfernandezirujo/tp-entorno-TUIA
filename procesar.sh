@@ -1,8 +1,9 @@
 #!/bin/bash
 
+# Verifica que la carpeta de imagenes exista
 if [[ -d ./imagenes ]]; then
     if [ -n $(find ./imagenes -type f -name "$archivo") ]; then
-        mkdir imagenes_convertidas
+        mkdir -p imagenes_convertidas
     else
         echo "No existe ningun archivo valido en la carpeta de imagenes"
         exit 1
@@ -18,6 +19,7 @@ if [[ -d ./imagenes ]]; then
         fi
     done
     if [[ "$(ls -A ./imagenes_convertidas)" ]]; then
+        echo "Proceso de conversión completado exitosamente."
         exit 0
     else
         echo "No existe ningun archivo con nombre valido de persona"
