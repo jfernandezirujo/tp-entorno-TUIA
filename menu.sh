@@ -1,5 +1,8 @@
 #!/bin/bash
 
+CHECKSUM_FILE="checksum.txt"
+ARCHIVO="imagenes.tar.gz"
+
 while true
 do
   clear
@@ -13,8 +16,12 @@ do
   read opcion
 
   case $opcion in
-    1) ./generar.sh ;;
-    2) ./descomprimir.sh ;;
+    1)
+      echo "Ingrese la cantidad de imágenes a generar:"
+      read CANTIDAD_IMAGENES
+      ./generar.sh $CANTIDAD_IMAGENES
+      ;;
+    2) ./descomprimir.sh $ARCHIVO $CHECKSUM_FILE ;;
     3) ./procesar.sh ;;
     4) ./comprimir.sh ;;
     5) exit 0 ;;
