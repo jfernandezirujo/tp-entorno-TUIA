@@ -34,6 +34,7 @@ tar -czvf "$nombre_archivo_comprimido" lista_imagenes.txt lista_nombres_validos.
 
 if [ $? -eq 0 ]; then
   echo "Proceso completado."
+  mv -u archivos_e_imagenes.tar.gz ./Salida
 else
   echo "Error: La compresión falló."
   exit 1
