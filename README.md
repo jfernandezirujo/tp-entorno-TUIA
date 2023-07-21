@@ -16,7 +16,7 @@ Para esto programamos los siguientes scripts:
   procesar.sh
   comprimir.sh
  
-En conjunto con un Dockerfile.						
+En conjunto con un Dockerfile, el cual es independiente de que existan los archivos .sh en el directorio, ya que descarga desde el repositorio de github						
 
 Para hacer build se debe ingresar los comandos
 
