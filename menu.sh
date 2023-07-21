@@ -34,8 +34,9 @@ clear
       ./comprimir.sh
       ;;
     5) 
-      echo "Saliendo del menú."
-      exit 0 ;;
+      echo "Saliendo del Docker."
+      exit 0 
+      ;;
     *) echo "Opción inválida. Por favor, seleccione una opción válida." ;;
   esac
 
