@@ -26,7 +26,7 @@ fi
 find "$carpeta_nombres_validos" -type f > lista_nombres_validos.txt
 
 # Generar archivo con el total de personas cuyo nombre finaliza con la letra
-grep -E "a(_|\.jpg)$" lista_nombres_validos.txt >> total_personas.txt
+grep -E "a_.*|a.jpg" lista_nombres_validos.txt >> total_personas.txt
 
 # Crear un archivo comprimido que incluya todos los archivos generados y todas las imágenes
 nombre_archivo_comprimido="archivos_e_imagenes.tar.gz"
