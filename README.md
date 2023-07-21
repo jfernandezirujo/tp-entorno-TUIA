@@ -1,84 +1,67 @@
 # tp-entorno-TUIA
 
-1).Guía de uso de los scripts:
-  Este conjunto de scripts está diseñado para realizar una serie de tareas relacionadas con la generación, procesamiento y compresión de    imágenes. A continuación, se proporciona una guía paso a paso sobre cómo utilizar estos scripts en conjunto:
+Trabajo Práctico Final - Entorno de Programación - 2023
 
-  Preparación
-  Asegúrate de tener los siguientes archivos y scripts en el mismo directorio:
+Grupo 5
 
+El objetivo de este trabajo es diseñar y escribir un programa para procesar un lote de imágenes. Consta de tres partes principales:
+Se generan y descargan imágenes y nombres a través de servicios web.
+Se aplica una transformación solamente a las imágenes de personas.
+Se genera un archivo comprimido con las imágenes procesadas. 
+				 			
+Para esto programamos los siguientes scripts:
+  menu.sh
   generar.sh
   descomprimir.sh
   procesar.sh
   comprimir.sh
-  menu.sh
-  Asegúrate de tener los siguientes archivos adicionales en el mismo directorio:
+ 
+En conjunto con un Dockerfile.						
 
-  dict.csv: un archivo que contiene una lista de nombres para generar las imágenes.
-  checksum.txt: un archivo de suma de verificación utilizado para verificar la integridad del archivo comprimido de imágenes.
-  imagenes.tar.gz: un archivo comprimido que contiene las imágenes generadas.
-  Asegúrate de tener instaladas las dependencias requeridas para los comandos utilizados en los scripts. Por ejemplo, wget y convert (del   paquete imagemagick).
+Para hacer build se debe ingresar los comandos
 
-2).Generar imágenes
-  Ejecuta el script generar.sh con el siguiente comando:
+docker build -t tp-entorno
+docker run -v $(pwd):/tp-entorno/Salida -it tp-entorno 
 
-  bash
-  Copy code
-  ./generar.sh <cantidad_imagenes>
-  Donde <cantidad_imagenes> es el número de imágenes que deseas generar. Este script descargará imágenes de la URL     https://thispersondoesnotexist.com/ y les asignará nombres utilizando el archivo dict.csv.
 
-  El script creará una carpeta llamada imagenes y almacenará las imágenes generadas en ella.
 
-  Al finalizar, se creará un archivo comprimido llamado imagenes.tar.gz que contendrá las imágenes generadas.
+Se desplegará un menú con las siguientes opciones
 
-3).Descomprimir imágenes
-  Ejecuta el script descomprimir.sh con el siguiente comando:
+"1. Generar imágenes"
+"2. Descomprimir imágenes"
+"3. Procesar imágenes"
+"4. Comprimir archivos"
+"5. Salir"
 
-  bash
-  Copy code
-  ./descomprimir.sh imagenes.tar.gz checksum.txt
-  Este script descomprimirá las imágenes del archivo comprimido imagenes.tar.gz y verificará su integridad utilizando el archivo   checksum.txt.
+Se recomienda ir en el orden en el que están presentes en el menú ya que de lo contrario el programa no funcionará o se perderán los elementos descargados.
 
-  Si el archivo pasa la verificación de suma de verificación, las imágenes se descomprimirán en la carpeta actual y se mostrará el     mensaje "Descompresión exitosa".
 
-  Los archivos imagenes.tar.gz y checksum.txt serán eliminados.
+"1. Generar imágenes"
+Al elegir la primera opción aparecerá el siguiente mensa
+"Ingrese la cantidad de imágenes a generar:"
 
-4).Procesar imágenes
-  Ejecuta el script procesar.sh con el siguiente comando:
+En este caso se debe elegir un número  porque de lo contrario el programa arrojará este error "Error: Se debe pasar un número como único argumento." También se debe tener en cuenta la cantidad de imágenes que se quieran generar ya que es un proceso que podría llevar algo de tiempo.
+ 
+En caso de que el proceso haya terminado con éxito veremos este mensaje "Generación de imágenes finalizada con éxito" y deberemos apretar cualquier tecla para que nos lleve de nuevo al menú principal. De este script obtendremos dos elementos uno llamado "imagenes.tar.gz" que será un archivo comprimido con nuestras imágenes y otro llamado"checksum.txt" que será el archivo de suma de verificación
 
-  bash
-  Copy code
-  ./procesar.sh
-  Este script procesará las imágenes en la carpeta imagenes y las convertirá a un tamaño de 512x512 píxeles si su nombre contiene al menos una letra mayúscula.
+"2. Descomprimir imágenes"
+En esta parte se toma como parámetros los dos archivos generados anteriormente y se descomprimen. El mensaje esperado es "Descompresión exitosa." De lo contrario aparecerán otros mensajes que describen el error. Estos pueden ser "Se requieren dos archivos como argumentos: imágenes comprimidas y archivo de suma de verificación.”, "No se encontraron los archivos." y “El archivo $IMAGES_ZIP no pasó la verificación de checksum.". En estos casos es recomendable volver a generar las imágenes. 
 
-  Las imágenes procesadas se almacenarán en una nueva carpeta llamada imagenes_convertidas.
+"3. Procesar imágenes"
+En este script se utiliza la carpeta de imágenes generadas en la opción Descomprimir imágenes. En caso de que esta no este veremos el siguiente error "No existe la carpeta imagenes, el programa no se puede ejecutar". De lo contrario debemos ver este mensaje "Proceso de conversión completado exitosamente.". Como este script procesa solo imagenes que tenga un nombre válido, es decir que empiecen con mayúscula, es posible que en nuestra carpeta de imágenes ninguna de ella tenga nombre válido y en este caso veremos el mensaje "No existe ningun archivo valido en la carpeta de imagenes".
 
-  Al finalizar, se mostrará el mensaje "Proceso de conversión completado exitosamente".
+"4. Comprimir archivos"
+En este último script se espera obtener un archivo comprimido con los siguientes elementos:		 
+Un archivo con la lista de nombres de todas las imágenes.
+Un archivo con la lista de nombres válidos.
+Un archivo con el total de personas cuyo nombre finaliza con la letra a.
+Un archivo con todas las imágenes			
+					 				
+Y se verá el mensaje "Proceso completado."
 
-5).Comprimir archivos
-  Ejecuta el script comprimir.sh con el siguiente comando:
+De lo contrario podremos obtener los siguientes mensajes de error:
+"Error: No se encontraron las carpetas 'imagenes' y/o 'imagenes_convertidas'."
+"Error: La carpeta 'imagenes' está vacía, no hay imágenes para procesar."
+"Error: La carpeta 'imagenes_convertidas' está vacía, no hay nombres válidos para procesar."
 
-  bash
-  Copy code
-  ./comprimir.sh
-  Este script comprimirá los archivos generados (lista_imagenes.txt, lista_nombres_validos.txt, total_personas.txt) y las carpetas imagenes y imagenes_convertidas en un archivo comprimido llamado archivos_e_imagenes.tar.gz.
-
-  Al finalizar, se mostrará el mensaje "Proceso completado".
-
-6).Menú interactivo
-  Ejecuta el script menu.sh con el siguiente comando:
-
-  bash
-  Copy code
-  ./menu.sh
-  Esto mostrará un menú interactivo con las siguientes opciones:
-
-a).Generar imágenes: permite generar nuevas imágenes siguiendo los pasos descritos en la sección "Generar imágenes".
-b).Descomprimir imágenes: permite descomprimir las imágenes siguiendo los pasos descritos en la sección "Descomprimir imágenes".
-c).Procesar imágenes: permite procesar las imágenes siguiendo los pasos descritos en la sección "Procesar imágenes".
-d).Comprimir archivos: permite comprimir los archivos y carpetas siguiendo los pasos descritos en la sección "Comprimir archivos".
-e).Salir: termina la ejecución del script.
-Selecciona la opción deseada ingresando el número correspondiente y presionando Enter.
-
-Sigue las instrucciones proporcionadas por el menú para realizar la acción seleccionada.
-
-¡Con estas instrucciones, deberías poder utilizar los scripts en conjunto para generar, procesar y comprimir imágenes de manera eficiente!
+"5. Salir"
