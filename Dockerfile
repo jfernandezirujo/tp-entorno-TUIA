@@ -1,5 +1,3 @@
-
-
 FROM ubuntu:latest
 
 WORKDIR /tp-entorno/
