@@ -33,12 +33,13 @@ if [[ $# -eq 1 ]] && [[ "$NUM_IMAGE" =~ ^[0-9]+$ ]]; then
     NAME=$(shuf -n 1 $NAMES_FILE) #Toma 1 valor random del archivo names_file
     NAME=$(echo $NAME | sed 's/,.*//') # Remueve la edad del nombre
     IMAGE_NAME=$(echo $NAME | tr ' ' '_') # Reemplaza espacios por guiones bajos
-    wget -o "$IMAGES_FOLDER/$IMAGE_NAME.jpg" $IMAGES_URL 2>&1 | grep -v " 100%[= ]*>" #Toma 1 imagen de la url y le asigna el nombre
+    wget -o "$IMAGES_FOLDER/$IMAGE_NAME.jpg" $IMAGES_URL >/dev/null 2>&1 #Toma 1 imagen de la url y le asigna el nombre
     sleep 1 #Tiempo espera entre cada iteracion
   done
 
-  # Comprime las imágenes
-  tar -czvf $ARCHIVO ./$IMAGES_FOLDER #-c (crear) -z (comprimir) -v (mostar prog) -f (especifica nombre del archivo)
+  # Comprime las imágenes 
+  tar -czvf $ARCHIVO ./$IMAGES_FOLDER  #-c (crear) -z (comprimir) -v (mostar prog) -f (especifica nombre del archivo)
+
 
   # Crea archivo con cantidad de imagnes
   touch $CHECKSUM_FILE
