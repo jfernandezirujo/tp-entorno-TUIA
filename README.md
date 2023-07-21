@@ -21,6 +21,7 @@ En conjunto con un Dockerfile.
 Para hacer build se debe ingresar los comandos
 
 docker build -t tp-entorno
+
 docker run -v $(pwd):/tp-entorno/Salida -it tp-entorno 
 
 
