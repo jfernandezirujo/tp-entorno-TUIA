@@ -22,10 +22,6 @@ if [[ $# -eq 1 ]] && [[ "$NUM_IMAGE" =~ ^[0-9]+$ ]]; then
   wget -O $NAMES_FILE $NAMES_URL
 
   # Crea la carpeta de imagenes
-  if [ -d "$IMAGES_FOLDER" ]; then
-   rm -rf "$IMAGES_FOLDER"
-  fi
-
   mkdir -p $IMAGES_FOLDER
 
   # Genera imagenes y les asigna un nombre
@@ -34,7 +30,7 @@ if [[ $# -eq 1 ]] && [[ "$NUM_IMAGE" =~ ^[0-9]+$ ]]; then
     NAME=$(shuf -n 1 $NAMES_FILE) #Toma 1 valor random del archivo names_file
     NAME=$(echo $NAME | sed 's/,.*//') # Remueve la edad del nombre
     IMAGE_NAME=$(echo $NAME | tr ' ' '_') # Reemplaza espacios por guiones bajos
-    wget -O "$IMAGES_FOLDER/$IMAGE_NAME.jpg" $IMAGES_URL #Toma 1 imagen de la url y le asigna el nombre
+    wget -o "$IMAGES_FOLDER/$IMAGE_NAME.jpg" $IMAGES_URL #Toma 1 imagen de la url y le asigna el nombre
     sleep 1 #Tiempo espera entre cada iteracion
   done
 
